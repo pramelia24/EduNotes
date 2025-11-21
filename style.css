@@ -1,0 +1,262 @@
+/* Variabel Warna Utama */
+:root {
+    --navy: #001f3f;       /* Biru Navy Tua */
+    --navy-light: #003366; /* Navy lebih terang untuk aksen */
+    --white: #ffffff;
+    --off-white: #f4f7f6; /* Latar belakang utama (putih gading) */
+    --gray: #aaa;
+    --text-dark: #333;
+    --accent: #FFD700;     /* Kuning Emas untuk FAB */
+}
+
+/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--off-white);
+    color: var(--text-dark);
+    /* Menyisakan ruang untuk header dan footer */
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* 1. Header (App Bar) */
+.app-bar {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* 2. Navigasi Bawah */
+.bottom-nav {
+    background-color: var(--navy);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: var(--gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+.nav-btn .material-icons {
+    font-size: 24px;
+}
+.nav-btn.active {
+    color: var(--white); /* Warna aktif */
+}
+
+/* 3. Konten & Halaman */
+.content {
+    padding: 20px;
+}
+.page {
+    display: none; /* Semua halaman disembunyikan */
+}
+.page.active {
+    display: block; /* Hanya halaman aktif yang tampil */
+}
+.hidden {
+    display: none !important;
+}
+
+h2 {
+    color: var(--navy-light);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--navy-light);
+    padding-bottom: 5px;
+}
+
+/* 4. Tampilan Daftar Tugas (Task Item) */
+.task-container {
+    display: grid;
+    gap: 15px;
+}
+.task-item {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.task-item.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+.task-info {
+    flex-grow: 1;
+}
+.task-info strong {
+    font-size: 1.1em;
+    color: var(--text-dark);
+}
+.task-info p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 4px 0;
+}
+.task-info .subject-tag {
+    background-color: var(--navy-light);
+    color: var(--white);
+    font-size: 0.8em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: inline-block;
+}
+.task-actions {
+    display: flex;
+    align-items: center;
+}
+.task-actions .edit-btn {
+    background: none;
+    border: none;
+    color: var(--navy-light);
+    cursor: pointer;
+    margin-left: 10px;
+}
+.task-actions input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+/* 5. Info Mata Pelajaran */
+.subject-item {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+.subject-item h4 {
+    color: var(--navy);
+    margin-bottom: 5px;
+}
+.subject-item p {
+    font-size: 0.9em;
+    color: #555;
+    white-space: pre-wrap; /* Agar catatan tetap rapi */
+}
+
+/* 6. Tombol Aksi (FAB) */
+.fab {
+    background-color: var(--accent);
+    color: var(--navy);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    position: fixed;
+    bottom: 80px; /* Di atas bottom nav */
+    right: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 99;
+}
+
+/* 7. Modal (Pop-up Tambah Tugas) */
+.modal {
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    display: none; /* Tersembunyi */
+    align-items: center;
+    justify-content: center;
+}
+.modal.show {
+    display: flex; /* Tampil */
+}
+.modal-content {
+    background-color: var(--white);
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* 8. Elemen Form */
+.form-card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--navy-light);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+.btn-primary {
+    background-color: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-secondary {
+    background-color: var(--gray);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
