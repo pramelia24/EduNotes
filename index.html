@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNavy - Pengingat Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-bar">
+        <h1>TaskNavy</h1>
+    </header>
+
+    <main class="content">
+
+        <section id="page-home" class="page active">
+            <h2>Tugas Hari Ini</h2>
+            <div id="task-list-today" class="task-container">
+                </div>
+            
+            <h2>Tugas Mendatang</h2>
+            <div id="task-list-upcoming" class="task-container">
+                </div>
+        </section>
+
+        <section id="page-subjects" class="page">
+            <h2>Mata Pelajaran</h2>
+            <div id="subject-list" class="subject-container">
+                </div>
+            <button id="show-subject-form" class="btn-primary">Tambah Mapel Baru</button>
+            
+            <form id="subject-form" class="form-card hidden">
+                <h3>Formulir Mata Pelajaran</h3>
+                <input type="hidden" id="subject-id">
+                <div class="form-group">
+                    <label for="subject-name">Nama Mapel</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-teacher">Nama Guru</label>
+                    <input type="text" id="subject-teacher">
+                </div>
+                <div class="form-group">
+                    <label for="subject-notes">Catatan (Link, info ujian, dll)</label>
+                    <textarea id="subject-notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan Mapel</button>
+                <button type="button" id="cancel-subject-form" class="btn-secondary">Batal</button>
+            </form>
+        </section>
+
+        <div id="modal-add-task" class="modal">
+            <div class="modal-content">
+                <form id="task-form">
+                    <h3 id="form-title">Tambah Tugas Baru</h3>
+                    <input type="hidden" id="task-id"> <div class="form-group">
+                        <label for="task-title">Nama Tugas</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Mata Pelajaran</label>
+                        <select id="task-subject" required>
+                            <option value="">Pilih Mapel...</option>
+                            </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="datetime-local" id="task-deadline" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Deskripsi</label>
+                        <textarea id="task-description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="close-modal" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <button id="fab-add-task" class="fab">
+        <i class="material-icons">add</i>
+    </button>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="page-home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-page="page-subjects">
+            <i class="material-icons">book</i>
+            <span>Mapel</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
